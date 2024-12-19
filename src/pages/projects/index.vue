@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import { supabase } from '@/lib/supabaseClient'
+import { ref } from 'vue'
 
-const getProjects = async () => {
+const projects = ref()
+
+// IIFE (Immediately Invoked Function Expression)
+;(async () => {
   const { data, error } = await supabase.from('projects').select()
 
   if (error) console.log(error)
 
-  console.log('Projects: ', data)
-}
+  projects.value = data
+
+  console.log('Projects: ', projects.value)
+})()
+
 </script>
 
 <template>
   <div>
     <h1>Projects Page</h1>
     <RouterLink to="/">Go to home</RouterLink>
+    {{ projects }}
   </div>
 </template>
 
