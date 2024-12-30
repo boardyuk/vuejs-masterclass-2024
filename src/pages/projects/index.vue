@@ -4,6 +4,8 @@ import type { Tables } from '../../../database/types'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { RouterLink } from 'vue-router'
 
+usePageStore().pageData.title = 'Projects'
+
 const projects = ref<Tables<'projects'>[] | null>(null)
 
 // IIFE (Immediately Invoked Function Expression)
@@ -24,7 +26,10 @@ const columns: ColumnDef<Tables<'projects'>>[] = [
     cell: ({ row }) => {
       return h(
         RouterLink,
-        { to: `/projects/${row.original.slug}`, class: 'text-left font-medium hover:bg-muted block w-full' },
+        {
+          to: `/projects/${row.original.slug}`,
+          class: 'text-left font-medium hover:bg-muted block w-full',
+        },
         () => row.getValue('name'),
       )
     },
