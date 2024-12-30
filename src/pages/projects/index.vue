@@ -7,15 +7,15 @@ import { RouterLink } from 'vue-router'
 const projects = ref<Tables<'projects'>[] | null>(null)
 
 // IIFE (Immediately Invoked Function Expression)
-;(async () => {
+const getProjects = async () => {
   const { data, error } = await supabase.from('projects').select()
 
   if (error) console.log(error)
 
   projects.value = data
+}
 
-  console.log('Projects: ', projects.value)
-})()
+await getProjects()
 
 const columns: ColumnDef<Tables<'projects'>>[] = [
   {
